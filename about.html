@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Обо мне — monotyle</title>
+  <meta name="description" content="Обо мне — monotyle, Backend разработчик на Python и FastAPI." />
+  <link rel="canonical" href="https://monotyle.dev/about.html" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#080e1d;--card:#0e1729;--border:rgba(94,234,212,0.1);--text:#e8edf5;--muted:#5a6f93;--mint:#5eead4;--amber:#fbbf24;--blue:#60a5fa;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:'Satoshi',sans-serif;line-height:1.6;overflow-x:hidden;}
+    .bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 90% 70% at 15% 5%,rgba(94,234,212,0.08) 0%,transparent 55%),radial-gradient(ellipse 70% 60% at 85% 85%,rgba(96,165,250,0.07) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 55% 45%,rgba(251,191,36,0.04) 0%,transparent 50%);}
+    .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(94,234,212,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(94,234,212,0.025) 1px,transparent 1px);background-size:72px 72px;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,14,29,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;text-decoration:none;color:var(--text);}
+    .logo-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,rgba(94,234,212,0.15),rgba(96,165,250,0.15));border:1px solid rgba(94,234,212,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .logo-text{color:var(--muted);}
+    .logo-name{color:var(--mint);}
+    .nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;padding:8px 16px;border-radius:10px;transition:all 0.2s;}
+    .nav-links a:hover{color:var(--text);background:rgba(94,234,212,0.07);}
+    .nav-links a.active{color:var(--mint);background:rgba(94,234,212,0.08);}
+    .nav-burger{display:none;background:none;border:none;color:var(--muted);cursor:pointer;padding:6px;}
+    .mobile-nav{display:none;flex-direction:column;gap:4px;padding:16px 24px 20px;background:rgba(8,14,29,0.97);border-bottom:1px solid var(--border);}
+    .mobile-nav.open{display:flex;}
+    .mobile-nav a{font-size:15px;font-weight:500;color:var(--muted);text-decoration:none;padding:12px 16px;border-radius:10px;transition:all 0.2s;}
+    .mobile-nav a:hover{color:var(--text);background:rgba(94,234,212,0.07);}
+    main{position:relative;z-index:1;}
+    .container{max-width:1140px;margin:0 auto;padding:0 32px;}
+    .section-title{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-0.03em;color:var(--text);}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:20px;transition:all 0.3s;position:relative;overflow:hidden;}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--mint),transparent);opacity:0;transition:opacity 0.3s;}
+    .card:hover{border-color:rgba(94,234,212,0.2);transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,0.3);}
+    .card:hover::before{opacity:1;}
+    .stag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:4px 10px;border-radius:6px;}
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity 0.75s ease,transform 0.75s ease;}
+    .reveal.visible{opacity:1;transform:none;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+    .hero{padding:160px 0 80px;text-align:center;}
+    .hero h1{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:clamp(52px,8vw,100px);line-height:0.93;letter-spacing:-0.04em;animation:fadeUp 0.7s 0.1s ease both;}
+    .hero h1 .grad{background:linear-gradient(135deg,var(--mint),var(--blue),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-sub{margin:24px auto 0;font-size:18px;color:var(--muted);max-width:480px;animation:fadeUp 0.7s 0.2s ease both;}
+
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:56px;}
+    .info-card{padding:32px;display:flex;flex-direction:column;gap:8px;}
+    .info-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mint);letter-spacing:0.12em;text-transform:uppercase;}
+    .info-val{font-size:17px;font-weight:600;}
+    .info-val.status{color:var(--mint);}
+    .info-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+    .sk-card{padding:24px;display:flex;flex-direction:column;gap:6px;}
+    .sk-name{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:16px;}
+    .sk-sub{font-size:12px;color:var(--muted);}
+    .sk-bar{height:2px;background:rgba(255,255,255,0.05);border-radius:100px;margin-top:14px;overflow:hidden;}
+    .sk-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--mint),var(--blue));width:0%;transition:width 1.4s cubic-bezier(0.4,0,0.2,1);}
+
+    footer{border-top:1px solid var(--border);padding:36px;text-align:center;position:relative;z-index:1;}
+    footer p{font-size:13px;color:var(--muted);}
+    @media(max-width:768px){.nav-links{display:none;}.nav-burger{display:block;}.container{padding:0 20px;}.info-grid{grid-template-columns:1fr;}.skills-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6" stroke="url(#g1)"/>
+          <polyline points="8 6 2 12 8 18" stroke="url(#g2)"/>
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#5eead4"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+            <linearGradient id="g2" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#5eead4"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <span><span class="logo-text">~/</span><span class="logo-name">monotyle</span></span>
+    </a>
+    <button class="nav-burger" id="burger"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <ul class="nav-links">
+      <li><a href="index.html" data-nav="index.html">Главная</a></li>
+      <li><a href="portfolio.html" data-nav="portfolio.html">Портфолио</a></li>
+      <li><a href="about.html" data-nav="about.html">Обо мне</a></li>
+      <li><a href="contacts.html" data-nav="contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Главная</a><a href="portfolio.html">Портфолио</a><a href="about.html">Обо мне</a><a href="contacts.html">Контакты</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1>Привет, я<br><span class="grad">monotyle</span></h1>
+      <p class="hero-sub">Backend-разработчик из России. Пишу на Python и FastAPI, строю надёжные API.</p>
+    </div>
+  </section>
+
+  <section style="padding:0 0 96px;">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:40px;" class="reveal">
+        <h2 class="section-title">Кто я</h2>
+      </div>
+      <div class="info-grid reveal" style="transition-delay:0.1s;">
+        <div class="card info-card">
+          <span class="info-label">О себе</span>
+          <span class="info-val">Backend Developer</span>
+          <span class="info-sub">Пишу backend на Python и FastAPI. Интересует разработка надёжных API, чистая структура кода и то, что легко читать и поддерживать.</span>
+        </div>
+        <div class="card info-card">
+          <span class="info-label">Образование</span>
+          <span class="info-val">Самообучение</span>
+          <span class="info-sub">Прошёл путь от нуля до написания production-ready API через практику и открытые ресурсы.</span>
+        </div>
+        <div class="card info-card">
+          <span class="info-label">Локация</span>
+          <span class="info-val">Россия</span>
+          <span class="info-sub">Работаю полностью удалённо, открыт к проектам из любой точки.</span>
+        </div>
+        <div class="card info-card" style="border-color:rgba(94,234,212,0.2);background:rgba(94,234,212,0.04);">
+          <span class="info-label">Статус</span>
+          <span class="info-val status">Открыт к предложениям</span>
+          <span class="info-sub">Готов рассмотреть интересные проекты, фриланс или постоянную занятость.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 0 120px;">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:40px;" class="reveal">
+        <h2 class="section-title">Технологии</h2>
+      </div>
+      <div class="skills-grid" id="skills-grid">
+        <div class="card sk-card reveal" data-pct="90"><span class="sk-name">Python</span><span class="sk-sub">Основной язык</span><div class="sk-bar"><div class="sk-fill"></div></div></div>
+        <div class="card sk-card reveal" data-pct="85" style="transition-delay:0.06s;"><span class="sk-name">FastAPI</span><span class="sk-sub">Web framework</span><div class="sk-bar"><div class="sk-fill"></div></div></div>
+        <div class="card sk-card reveal" data-pct="85" style="transition-delay:0.12s;"><span class="sk-name">Pydantic</span><span class="sk-sub">Валидация данных</span><div class="sk-bar"><div class="sk-fill"></div></div></div>
+        <div class="card sk-card reveal" data-pct="65" style="transition-delay:0.18s;"><span class="sk-name">Linux</span><span class="sk-sub">Окружение</span><div class="sk-bar"><div class="sk-fill"></div></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><p>© 2026 monotyle · Backend Developer · Python & FastAPI</p></footer>
+
+<script>
+  document.getElementById('burger').addEventListener('click',()=>document.getElementById('mobile-nav').classList.toggle('open'));
+  const page=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('[data-nav]').forEach(a=>{if(a.dataset.nav===page)a.classList.add('active');});
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      const fill=e.target.querySelector('.sk-fill');
+      if(fill){const pct=e.target.dataset.pct;setTimeout(()=>fill.style.width=pct+'%',200);}
+    }
+  }),{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

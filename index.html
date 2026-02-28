@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>monotyle — Backend Developer</title>
+  <meta name="description" content="monotyle — Backend разработчик на Python и FastAPI. Создаю REST API и backend-сервисы." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://monotyle.dev/" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#080e1d; --card:#0e1729; --border:rgba(94,234,212,0.1); --text:#e8edf5; --muted:#5a6f93; --mint:#5eead4; --amber:#fbbf24; --blue:#60a5fa; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:'Satoshi',sans-serif;line-height:1.6;overflow-x:hidden;}
+    .bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 90% 70% at 15% 5%,rgba(94,234,212,0.08) 0%,transparent 55%),radial-gradient(ellipse 70% 60% at 85% 85%,rgba(96,165,250,0.07) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 55% 45%,rgba(251,191,36,0.04) 0%,transparent 50%);}
+    .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(94,234,212,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(94,234,212,0.025) 1px,transparent 1px);background-size:72px 72px;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,14,29,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;text-decoration:none;color:var(--text);letter-spacing:-0.01em;}
+    .logo-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,rgba(94,234,212,0.15),rgba(96,165,250,0.15));border:1px solid rgba(94,234,212,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .logo-text{color:var(--muted);}
+    .logo-name{color:var(--mint);}
+    .nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;padding:8px 16px;border-radius:10px;transition:all 0.2s;}
+    .nav-links a:hover{color:var(--text);background:rgba(94,234,212,0.07);}
+    .nav-links a.active{color:var(--mint);background:rgba(94,234,212,0.08);}
+    .nav-burger{display:none;background:none;border:none;color:var(--muted);cursor:pointer;padding:6px;}
+    .mobile-nav{display:none;flex-direction:column;gap:4px;padding:16px 24px 20px;background:rgba(8,14,29,0.97);border-bottom:1px solid var(--border);}
+    .mobile-nav.open{display:flex;}
+    .mobile-nav a{font-size:15px;font-weight:500;color:var(--muted);text-decoration:none;padding:12px 16px;border-radius:10px;transition:all 0.2s;}
+    .mobile-nav a:hover{color:var(--text);background:rgba(94,234,212,0.07);}
+    main{position:relative;z-index:1;}
+    .container{max-width:1140px;margin:0 auto;padding:0 32px;}
+    .hero{padding:160px 0 100px;text-align:center;}
+    .hero-title{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:clamp(36px,5vw,68px);line-height:1.08;letter-spacing:-0.03em;color:var(--text);animation:fadeUp 0.7s 0.1s ease both;}
+    .hero-title .grad{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 55%,var(--amber) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-sub{margin:24px auto 0;font-size:18px;color:var(--muted);max-width:520px;line-height:1.75;animation:fadeUp 0.7s 0.2s ease both;}
+    .hero-cta{margin-top:48px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;animation:fadeUp 0.7s 0.3s ease both;}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;font-family:'Satoshi',sans-serif;font-size:15px;font-weight:700;color:#060c18;text-decoration:none;background:linear-gradient(135deg,var(--mint),var(--blue));padding:15px 34px;border-radius:12px;transition:all 0.25s;}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(94,234,212,0.25);}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;font-family:'Satoshi',sans-serif;font-size:15px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:15px 34px;border-radius:12px;transition:all 0.25s;}
+    .btn-ghost:hover{background:rgba(255,255,255,0.07);border-color:rgba(94,234,212,0.25);transform:translateY(-3px);}
+    section{padding:96px 0;}
+    .section-head{text-align:center;margin-bottom:56px;}
+    .section-title{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-0.03em;color:var(--text);}
+    .section-desc{margin-top:14px;font-size:16px;color:var(--muted);max-width:500px;margin-left:auto;margin-right:auto;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:20px;transition:all 0.3s;position:relative;overflow:hidden;}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--mint),transparent);opacity:0;transition:opacity 0.3s;}
+    .card:hover{border-color:rgba(94,234,212,0.2);transform:translateY(-5px);box-shadow:0 24px 64px rgba(0,0,0,0.35);}
+    .card:hover::before{opacity:1;}
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .skill-card{padding:32px;}
+    .skill-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:22px;}
+    .skill-card h3{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:19px;margin-bottom:10px;}
+    .skill-card p{font-size:14px;color:var(--muted);line-height:1.7;}
+    .skill-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;}
+    .stag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:4px 10px;border-radius:6px;}
+    .proj-card{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:52px;}
+    .proj-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mint);letter-spacing:0.1em;margin-bottom:18px;}
+    .proj-title{font-family:'Cabinet Grotesk',sans-serif;font-size:30px;font-weight:900;letter-spacing:-0.02em;margin-bottom:14px;}
+    .proj-desc{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;}
+    .proj-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--mint);text-decoration:none;transition:gap 0.2s;}
+    .proj-link:hover{gap:14px;}
+    .ep-list{background:rgba(0,0,0,0.35);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    .ep{display:grid;grid-template-columns:80px 1fr;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:12px;align-items:center;transition:background 0.15s;}
+    .ep:last-child{border-bottom:none;}
+    .ep:hover{background:rgba(94,234,212,0.03);}
+    .m-get{color:#4ade80;font-weight:600;}
+    .m-post{color:#60a5fa;font-weight:600;}
+    .m-put{color:var(--amber);font-weight:600;}
+    .m-del{color:#f87171;font-weight:600;}
+    .ep-path{color:var(--text);}
+    .cta-card{text-align:center;padding:80px 48px;background:linear-gradient(135deg,rgba(94,234,212,0.05) 0%,rgba(96,165,250,0.05) 100%);}
+    .cta-title{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;}
+    .cta-sub{font-size:17px;color:var(--muted);margin-bottom:44px;}
+    .tg-btn{display:inline-flex;align-items:center;gap:14px;font-family:'Cabinet Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--text);text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:22px 48px;border-radius:18px;transition:all 0.3s;}
+    .tg-btn:hover{background:rgba(94,234,212,0.08);border-color:rgba(94,234,212,0.3);transform:translateY(-4px);box-shadow:0 24px 72px rgba(94,234,212,0.1);}
+    footer{border-top:1px solid var(--border);padding:36px;text-align:center;position:relative;z-index:1;}
+    footer p{font-size:13px;color:var(--muted);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity 0.75s ease,transform 0.75s ease;}
+    .reveal.visible{opacity:1;transform:none;}
+    @media(max-width:900px){.skills-grid{grid-template-columns:1fr;}.proj-card{grid-template-columns:1fr;gap:32px;padding:36px;}}
+    @media(max-width:640px){.nav-links{display:none;}.nav-burger{display:block;}.container{padding:0 20px;}.hero{padding:120px 0 80px;}.cta-card{padding:52px 24px;}.tg-btn{font-size:18px;padding:18px 32px;}.hero-cta{flex-direction:column;}.btn-primary,.btn-ghost{width:100%;justify-content:center;}}
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6" stroke="url(#g1)"/>
+          <polyline points="8 6 2 12 8 18" stroke="url(#g2)"/>
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#5eead4"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+            <linearGradient id="g2" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#5eead4"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <span><span class="logo-text">~/</span><span class="logo-name">monotyle</span></span>
+    </a>
+    <button class="nav-burger" id="burger"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <ul class="nav-links">
+      <li><a href="index.html" data-nav="index.html">Главная</a></li>
+      <li><a href="portfolio.html" data-nav="portfolio.html">Портфолио</a></li>
+      <li><a href="about.html" data-nav="about.html">Обо мне</a></li>
+      <li><a href="contacts.html" data-nav="contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Главная</a><a href="portfolio.html">Портфолио</a><a href="about.html">Обо мне</a><a href="contacts.html">Контакты</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Привет, я <span class="grad">monotyle</span>,<br>backend разработчик на Python</h1>
+      <p class="hero-sub">Создаю надёжные REST API и backend-сервисы с помощью FastAPI. Чистый код, продуманная архитектура, документация из коробки.</p>
+      <div class="hero-cta">
+        <a href="portfolio.html" class="btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+          Смотреть проекты
+        </a>
+        <a href="contacts.html" class="btn-ghost">Написать мне →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="section-title">Стек технологий</h2>
+        <p class="section-desc">Инструменты для создания надёжных backend-решений</p>
+      </div>
+      <div class="skills-grid">
+        <div class="card skill-card reveal">
+          <div class="skill-icon" style="background:rgba(94,234,212,0.1);">🐍</div>
+          <h3>Python & FastAPI</h3>
+          <p>Асинхронные API с автодокументацией, валидацией и строгой типизацией через Pydantic.</p>
+          <div class="skill-tags"><span class="stag">Python 3.10+</span><span class="stag">FastAPI</span><span class="stag">Uvicorn</span><span class="stag">asyncio</span></div>
+        </div>
+        <div class="card skill-card reveal" style="transition-delay:0.12s;">
+          <div class="skill-icon" style="background:rgba(251,191,36,0.1);">⚙️</div>
+          <h3>DevOps & Инфра</h3>
+          <p>Работа в Linux-окружении, версионирование кода и базовое знание инфраструктуры.</p>
+          <div class="skill-tags"><span class="stag">Linux</span><span class="stag">Pydantic</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="section-title">Последний проект</h2>
+      </div>
+      <div class="card proj-card reveal">
+        <div>
+          <p class="proj-num">01 · github.com/monotyle</p>
+          <h3 class="proj-title">fastapi-notes-api</h3>
+          <p class="proj-desc">REST API для управления заметками. Полный CRUD через 4 эндпоинта. In-memory хранилище. Swagger UI «из коробки».</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;"><span class="stag">fastapi</span><span class="stag">pydantic</span><span class="stag">uvicorn</span><span class="stag">python</span></div>
+          <a href="https://github.com/monotyle/fastapi-notes-api" target="_blank" class="proj-link">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            Открыть на GitHub →
+          </a>
+        </div>
+        <div class="ep-list">
+          <div class="ep"><span class="m-get">GET</span><span class="ep-path">/notes</span></div>
+          <div class="ep"><span class="m-post">POST</span><span class="ep-path">/notes</span></div>
+          <div class="ep"><span class="m-put">PUT</span><span class="ep-path">/notes/{id}</span></div>
+          <div class="ep"><span class="m-del">DELETE</span><span class="ep-path">/notes/{id}</span></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:32px;"><a href="portfolio.html" class="btn-ghost">Все проекты →</a></div>
+    </div>
+  </section>
+
+  <section style="padding-bottom:120px;">
+    <div class="container">
+      <div class="card cta-card reveal">
+        <h2 class="cta-title">Готов к работе</h2>
+        <p class="cta-sub">Интересный проект или предложение? Напишите в Telegram</p>
+        <a href="https://t.me/monotyle" target="_blank" class="tg-btn">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="url(#tg)"/><path d="M17.5 7L9.5 11.5L6.5 10.5L17.5 7Z" fill="white" opacity="0.8"/><path d="M9.5 11.5L17.5 7L13 17L9.5 13.5V11.5Z" fill="white"/><path d="M9.5 13.5L11.5 16.5L13 17L9.5 13.5Z" fill="white" opacity="0.6"/><defs><linearGradient id="tg" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#5eead4"/><stop offset="1" stop-color="#60a5fa"/></linearGradient></defs></svg>
+          @monotyle
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><p>© 2026 monotyle · Backend Developer · Python & FastAPI</p></footer>
+
+<script>
+  document.getElementById('burger').addEventListener('click',()=>document.getElementById('mobile-nav').classList.toggle('open'));
+  const page=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('[data-nav]').forEach(a=>{if(a.dataset.nav===page)a.classList.add('active');});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
