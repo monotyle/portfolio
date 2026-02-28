@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Портфолио — monotyle</title>
   <meta name="description" content="Портфолио monotyle — Backend-сервисы и API на Python и FastAPI." />
-  <link rel="canonical" href="https://monotyle.dev/portfolio.html" />
+  <link rel="canonical" href="https://monotyle.dev/portfolio.html  " />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com  " />
+  <link rel="preconnect" href="https://fonts.gstatic.com  " crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk  :wght@400;500;700;800;900&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root{--bg:#080e1d;--card:#0e1729;--border:rgba(94,234,212,0.1);--text:#e8edf5;--muted:#5a6f93;--mint:#5eead4;--amber:#fbbf24;--blue:#60a5fa;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -122,7 +122,7 @@
           <h3 class="proj-title">fastapi-notes-api</h3>
           <p class="proj-desc">REST API для управления заметками. Реализованы четыре эндпоинта — получение всех заметок, создание, обновление и удаление по ID. Данные хранятся in-memory. Встроенная документация через Swagger UI доступна по <code style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mint);">/docs</code>.</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;"><span class="stag">fastapi</span><span class="stag">pydantic</span><span class="stag">uvicorn</span><span class="stag">python 3.10+</span><span class="stag">swagger ui</span></div>
-          <a href="https://github.com/monotyle/fastapi-notes-api" target="_blank" class="proj-link">
+          <a href="https://github.com/monotyle/fastapi-notes-api  " target="_blank" class="proj-link">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
             Открыть на GitHub
           </a>
@@ -134,6 +134,28 @@
             <div class="ep-row"><span class="m-post">POST</span><span class="ep-path">/notes</span><span class="ep-desc">Создать заметку</span></div>
             <div class="ep-row"><span class="m-put">PUT</span><span class="ep-path">/notes/{id}</span><span class="ep-desc">Обновить по ID</span></div>
             <div class="ep-row"><span class="m-del">DELETE</span><span class="ep-path">/notes/{id}</span><span class="ep-desc">Удалить по ID</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card proj reveal">
+        <div>
+          <p class="proj-num">02 · URL Shortener</p>
+          <h3 class="proj-title">fastapi-url-shortener</h3>
+          <p class="proj-desc">Сервис для сокращения длинных URL с генерацией 6-символьных кодов. Одна и та же ссылка всегда получает один и тот же код — дубликаты не создаются. Поддерживает редиректы, просмотр информации и удаление ссылок. Данные хранятся in-memory.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;"><span class="stag">fastapi</span><span class="stag">pydantic</span><span class="stag">uvicorn</span><span class="stag">python 3.10+</span><span class="stag">secrets</span></div>
+          <a href="https://github.com/monotyle/fastapi-url-shortener" target="_blank" class="proj-link">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            Открыть на GitHub
+          </a>
+        </div>
+        <div>
+          <div class="ep-table">
+            <div class="ep-header"><span>Метод</span><span>Путь</span><span>Описание</span></div>
+            <div class="ep-row"><span class="m-post">POST</span><span class="ep-path">/shorten</span><span class="ep-desc">Создать короткую ссылку</span></div>
+            <div class="ep-row"><span class="m-get">GET</span><span class="ep-path">/{short_code}</span><span class="ep-desc">Редирект на URL</span></div>
+            <div class="ep-row"><span class="m-get">GET</span><span class="ep-path">/info/{short_code}</span><span class="ep-desc">Информация о коде</span></div>
+            <div class="ep-row"><span class="m-del">DELETE</span><span class="ep-path">/delete/{short_code}</span><span class="ep-desc">Удалить ссылку</span></div>
           </div>
         </div>
       </div>
